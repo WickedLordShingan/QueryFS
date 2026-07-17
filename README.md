@@ -86,7 +86,9 @@ Once mounted, navigate to the mount point and query files using the minimal gram
 ```bash
 cd ~/my_files_mount
 ls                    # List all files
-cd "query_expression" # Navigate to files matching the query
+cd 'query_expression' # Navigate to files matching the query (ex : cd 'newer_than "a.txt")
+cat 'query_expression_that_evaluates_to_a_single_file' (ex : cat 'newest')
+
 ```
 
 ### Unmount the filesystem
@@ -99,3 +101,8 @@ Example:
 ```bash
 fusermount -u ~/my_files_mount
 ```
+
+### SOME LIMITATIONS
+ - Paths should always be surrounded by double quotes
+ - Paths should be typed with | in place / . The scanner will later substitute / in place of |
+ - regex patterns should be surrounded in regex()
