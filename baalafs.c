@@ -191,6 +191,7 @@ static int fs_fsync(const char *path, int datasync, struct fuse_file_info *fi) {
 
 static int fs_mkdir(const char *path, mode_t mode) {
   (void)mode;
+  printf("CALLED\n");
 
   const char **result = resolve_universe(&cache, path, og_directory);
   if (result == NULL) {
@@ -217,6 +218,7 @@ static int fs_mkdir(const char *path, mode_t mode) {
   snprintf(new_dir_path, sizeof(new_dir_path), "%s/%s from %s", og_directory,
            query_text, dir_label);
 
+  printf("MADE\n");
   int mkdir_status = 0;
   if (mkdir(new_dir_path, 0755) != 0) {
     mkdir_status = -errno;
@@ -230,6 +232,7 @@ static int fs_mkdir(const char *path, mode_t mode) {
     char link_path[PATH_MAX];
     snprintf(link_path, sizeof(link_path), "%s/%s", new_dir_path, filename);
     symlink(result[i], link_path);
+    printf("LINKED %s\n", result[i]);
   }
 
   for (int i = 0; i < arrlen(result); i++) {
