@@ -3,12 +3,10 @@
 
 #include <stdbool.h>
 
-// ============================================================
 // query -> or_group
 // or_group -> and_group ("or" and_group)*
 // and_group -> unary ("and" unary)*
 // unary -> "not"? group
-// ============================================================
 
 typedef enum {
   QUERY_GROUP,
@@ -38,9 +36,7 @@ struct query {
   QueryData as;
 };
 
-// ============================================================
 // group -> name_group | characteristic_group
-// ============================================================
 
 typedef enum {
   GROUP_NAME,
@@ -55,9 +51,7 @@ typedef struct group {
   } as;
 } Group;
 
-// ============================================================
 // name_group -> PATH ("," PATH)* | regex (on name)
-// ============================================================
 
 typedef enum {
   NAME_PATHS, // comma-separated list of paths
@@ -74,9 +68,7 @@ typedef struct name_group {
   } as;
 } NameGroup;
 
-// ============================================================
 // characteristic_group -> time_group | size_group | content_group
-// ============================================================
 
 typedef enum {
   CHAR_TIME,
@@ -93,11 +85,9 @@ typedef struct characteristic_group {
   } as;
 } CharacteristicGroup;
 
-// ============================================================
 // time_group -> newer_group | older_group
 // newer_group -> "newer than" group | newest (NUMBER)?
 // older_group -> "older than" group | oldest (NUMBER)?
-// ============================================================
 
 typedef enum {
   TIME_NEWER,
@@ -125,11 +115,9 @@ typedef struct time_group {
   TimeCompare compare;
 } TimeGroup;
 
-// ============================================================
 // size_group -> bigger_group | smaller_group
 // bigger_group -> "bigger than" (group | NUMBER) | "biggest" (NUMBER)?
 // smaller_group -> "smaller than" (group | NUMBER) | "smallest" (NUMBER)?
-// ============================================================
 
 typedef enum {
   SIZE_BIGGER,
@@ -159,12 +147,10 @@ typedef struct size_group {
   SizeCompare compare;
 } SizeGroup;
 
-// ============================================================
 // content_group -> starts_with_group | contains_group
 // starts_with_group -> "starts_with" regex
 // contains_group -> "contains" regex
 // regex -> "regex(" REGEX? ")"
-// ============================================================
 
 typedef enum {
   CONTENT_STARTS_WITH,
